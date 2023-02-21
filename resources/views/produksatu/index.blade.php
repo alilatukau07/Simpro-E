@@ -1,5 +1,5 @@
 @extends('layouts.base')
-@section('title', 'Produk')
+@section('title', 'Produk 2022')
 @section('content')
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -21,7 +21,7 @@
                                     <th class="text-center">Rumah Sakit</th>
                                     <th class="text-center">Tanggal Instalasi</th>
                                     <th class="text-center">Keterangan</th>
-                                    <th class="text-center">Action</th>
+                                    <th class="text-center" width="15%">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">

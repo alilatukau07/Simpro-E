@@ -208,11 +208,14 @@
     <script src="{{ asset('temp/vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('temp/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/6.0.6/highcharts.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js">
+    </script>
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable();
         });
     </script>
+
     @stack('js')
 </body>
 

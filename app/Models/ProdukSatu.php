@@ -11,6 +11,8 @@ class ProdukSatu extends Model
 
     protected $table = 'produksatu';
 
+    // protected $dates = ['tgl_instalasi'];
+
     protected $fillable = [
         'nama_produk',
         'no_seri',

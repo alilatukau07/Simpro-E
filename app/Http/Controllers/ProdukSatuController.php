@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -41,13 +42,14 @@ class ProdukSatuController extends Controller
                 'distributor' => "required|string|max:50",
                 'rumah_sakit' => "required|string|max:50",
                 'tgl_instalasi' => "required",
-                'keterangan' => "required"
+                'keterangan' => "required",
             ],
         );
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
         try {
+
             ProdukSatu::create([
                 'nama_produk'   => $request->nama_produk,
                 'no_seri'   => $request->no_seri,
