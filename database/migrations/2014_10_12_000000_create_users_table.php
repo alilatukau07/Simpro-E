@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('no_hp')->nullable();
             $table->string('level');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }

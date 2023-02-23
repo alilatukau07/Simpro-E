@@ -14,14 +14,8 @@ class UsersController extends Controller
 {
     public function index()
     {
-        if (request()->ajax()) {
-            $query = User::all();
-            return DataTables::of($query)
-                ->addIndexColumn()
-                ->addColumn('action', 'users.action')
-                ->toJson();
-        }
-        return view('users.index');
+        $users = User::all();
+        return view('users.index', compact('users'));
     }
 
     public function create()
@@ -32,33 +26,13 @@ class UsersController extends Controller
     // method untuk menambahkan user
     public function store(Request $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'name' => "required|string|max:50|unique:users,name",
-                'email' => "required|email|unique:users,email",
-                'password' => "required|min:6|confirmed",
-                'no_hp' => "required",
-                'level' => "required"
-            ],
-        );
-        if ($validator->fails()) {
-            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        $data = User::create($request->all());
+        if ($request->hasFile('foto')) {
+            $request->file('foto')->move('fotousers/', $request->file('foto')->getClientOriginalName());
+            $data->foto = $request->file('foto')->getClientOriginalName();
+            $data->save();
         }
-        try {
-            User::create([
-                'name'   => $request->name,
-                'email'   => $request->email,
-                'password'   => Hash::make($request->password),
-                'level'   => $request->level,
-                'no_hp'   => $request->no_hp,
-            ]);
-            // Alert::toast('Data berhasil disimpan', 'success');
-            return redirect()->route('users.index');
-        } catch (\Throwable $th) {
-            // Alert::toast('Data gagal disimpan', 'error');
-            return redirect()->route('users.index');
-        }
+        return redirect()->route('users.index')->with('success', 'User Berhasil Ditambah!');
     }
 
     public function edit(User $user)
@@ -69,45 +43,16 @@ class UsersController extends Controller
     }
 
     // method untuk mengupdate user
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'name' => "required|string|max:50|unique:users,name, " . $user->id,
-                'email' => "required|email|unique:users,email," . $user->id,
-                'password' => "confirmed",
-                'level' => "required",
-                'no_hp' => "required"
-            ],
-        );
-        if ($validator->fails()) {
-            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        $data = User::find($id);
+        $data->update($request->all());
+        if ($request->hasFile('foto')) {
+            $request->file('foto')->move('fotousers/', $request->file('foto')->getClientOriginalName());
+            $data->foto = $request->file('foto')->getClientOriginalName();
+            $data->save();
         }
-        DB::beginTransaction();
-        try {
-            $user = User::findOrFail($user->id);
-            if ($request->password == "" || $request->password == null) {
-                $user->update([
-                    'name'   => $request->name,
-                    'email'   => $request->email,
-                ]);
-            } else {
-                $user->update([
-                    'name'   => $request->name,
-                    'email'   => $request->email,
-                    'password'   => Hash::make($request->password),
-                ]);
-            }
-            // Alert::toast('Data berhasil diupdate', 'success');
-            return redirect()->route('users.index');
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            // Alert::toast('Data gagal diupdate', 'error');
-            return redirect()->route('users.index');
-        } finally {
-            DB::commit();
-        }
+        return redirect()->route('users.index')->with('success', 'User Berhasil Diupdate!');
     }
 
     // method untuk menghapus user
@@ -122,7 +67,7 @@ class UsersController extends Controller
             // Alert::toast('Data gagal dihapus', 'error');
         } finally {
             DB::commit();
-            return redirect()->back();
+            return redirect()->back()->with('success', 'User Berhasil Dihapus!');
         }
     }
 

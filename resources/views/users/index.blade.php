@@ -9,21 +9,53 @@
         <div class="col-md-12">
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    <a href="{{ route('users.create') }}" class="btn btn-md btn-success mb-3">TAMBAH</a>
-                    <a href="{{ route('exportpdf') }}" class="btn btn-md btn-secondary mb-3">EXPORT PDF</a>
+                    <a href="{{ route('users.create') }}" class="btn btn-md btn-success mb-3"><i class="fa fa-user-plus"
+                            aria-hidden="true"></i> TAMBAH</a>
+                    <a href="{{ route('exportpdf') }}" class="btn btn-md btn-secondary mb-3"><i class="fa fa-download"
+                            aria-hidden="true"></i> EXPORT PDF</a>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th class="text-center">No.</th>
-                                    <th class="text-center">Nama User</th>
+                                    <th class="text-center">Nama</th>
                                     <th class="text-center">Email</th>
+                                    <th class="text-center">Posisi</th>
                                     <th class="text-center">No Hp</th>
-                                    <th class="text-center">Level</th>
+                                    <th class="text-center">Foto</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
+                                @php $no=1; @endphp
+                                @foreach($users as $item)
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->level }}</td>
+                                    <td>{{ $item->no_hp }}</td>
+                                    <td>
+                                        <img src="{{asset('fotousers/'.$item->foto)}}" alt="" style="width: 50px">
+                                    </td>
+                                    <td class="d-flex justify-content-center">
+                                        <a href="{{ route('users.edit', $item->id) }}"
+                                            class="btn btn-primary btn-xs mb-1 mr-2">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('users.destroy', $item->id) }}" method="post"
+                                            class="d-inline"
+                                            onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                            @csrf
+                                            @method('delete')
+
+                                            <button class="btn btn-danger btn-xs mb-1">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -33,45 +65,3 @@
     </div>
 </div>
 @endsection
-
-@push('js')
-<script>
-    let columns = [{
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex',
-                orderable: false,
-                searchable: false
-            },
-            {
-                data: 'name',
-                name: 'name'
-            },
-            {
-                data: 'email',
-                name: 'email'
-            },
-            {
-                data: 'no_hp',
-                name: 'no_hp'
-            },
-            {
-                data: 'level',
-                name: 'level'
-            },
-        ]
-
-        columns.push({
-            data: 'action',
-            name: 'action',
-            orderable: false,
-            searchable: false
-        })
-
-        $('#dataTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('users.index') }}",
-            columns: columns
-        });
-</script>
-@endpush

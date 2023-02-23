@@ -14,7 +14,7 @@
                                 class="fa fa-arrow-left"></i> Back</a>
                     </div>
                     <div class="col-md-6">
-                        <form method="POST" action="{{ route('users.store') }}">
+                        <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1">Nama</label>
@@ -72,6 +72,14 @@
                                         User</option>
                                 </select>
                                 @error('level')
+                                <span style="color: red;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1">Foto</label>
+                                <input class="form-control @error('foto') is-invalid @enderror" type="file"
+                                    value="{{ old('foto') }}" placeholder="Masukan Foto" name="foto">
+                                @error('foto')
                                 <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>

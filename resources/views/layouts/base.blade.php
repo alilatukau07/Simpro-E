@@ -203,6 +203,7 @@
     </script>
 
     @stack('js')
+    @include('sweetalert::alert')
 </body>
 
 </html>

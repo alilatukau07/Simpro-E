@@ -14,7 +14,8 @@
                                 class="fa fa-arrow-left"></i> Back</a>
                     </div>
                     <div class="col-md-6">
-                        <form method="POST" action="{{ route('users.update', $user->id) }}">
+                        <form method="POST" action="{{ route('users.update', $user->id) }}"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
@@ -47,18 +48,9 @@
                             <div class="mb-3">
                                 <label for="password">Password</label>
                                 <input class="form-control @error('password') is-invalid @enderror" id="password"
-                                    type="password" value="{{ old('password') }}" placeholder="Password"
-                                    name="password">
-                                <span style="color: red">*kosongkan jika tidak ingin merubah password</span>
-                                @error('password')
-                                <span style="color: red;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Konfirmasi Password</label>
-                                <input class="form-control @error('password') is-invalid @enderror" id=""
-                                    type="password" value="{{ old('password_confirmation') }}"
-                                    placeholder="Konfirmasi Password" name="password_confirmation">
+                                    type="password" value="{{ old('password') ? old('password') : $user->password }}"
+                                    placeholder="Password" name="password">
+                                <span style="color: red">*lewati jika tidak ingin merubah password</span>
                                 @error('password')
                                 <span style="color: red;">{{ $message }}</span>
                                 @enderror
@@ -77,6 +69,14 @@
                                 </select>
                                 </select>
                                 @error('level')
+                                <span style="color: red;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1">Foto</label>
+                                <input class="form-control @error('foto') is-invalid @enderror" type="file"
+                                    value="{{ old('foto') }}" placeholder="Masukan Foto" name="foto">
+                                @error('foto')
                                 <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>
