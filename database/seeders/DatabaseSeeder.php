@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             ProdukSatuSeeder::class,
             KategoriSeeder::class,
             DistributorSeeder::class,
+            MaintenanceSeeder::class,
         ]);
     }
 }

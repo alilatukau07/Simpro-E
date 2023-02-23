@@ -1,30 +1,28 @@
 @extends('layouts.base')
-@section('title', 'Edit Produk')
+@section('title', 'Tambah Maintenance')
 @section('content')
 <div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Tambah Maintenance</h1>
+    </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Edit Produk</h1>
-            </div>
             <div class="card shadow mb-4">
                 <div class="card-body">
                     <div class="form-group ">
-                        <a href="{{ route('produksatu.index') }}" class="btn btn-warning" style="float: right"><i
+                        <a href="{{ route('maintenance.index') }}" class="btn btn-warning" style="float: right"><i
                                 class="fa fa-arrow-left"></i> Back</a>
                     </div>
-                    <div class="col-md-10">
-                        <form method="POST" action="{{ route('produksatu.update', $produksatu->id) }}">
+                    <div class="col-md-6">
+                        <form method="POST" action="{{ route('maintenance.store') }}">
                             @csrf
-                            @method('PUT')
                             <div class="mb-3">
                                 <label for="nama_produk">Nama Produk/Type</label>
                                 <select name="nama_produk"
                                     class="form-control @error('nama_produk') is-invalid @enderror" id="nama_produk"
                                     required>
-                                    <option value="" hidden="">
-                                        {{ old('nama_produk') ? old('nama_produk') : $produksatu->nama_produk }}
-                                    </option>
+                                    <option value="{{ old('nama_produk') }}" hidden="">
+                                        --Pilih Produk--</option>
                                     <option value="Anesthesia Machine AN350">Anesthesia Machine AN350</option>
                                     <option value="Anesthesia Machine A8500">Anesthesia Machine A8500</option>
                                     <option value="Anesthesia Machine A8500 TC">Anesthesia Machine A8500 TC</option>
@@ -62,8 +60,8 @@
                             <div class="mb-3">
                                 <label for="no_seri">No Seri</label>
                                 <input class="form-control @error('no_seri') is-invalid @enderror" id="no_seri"
-                                    type="text" value="{{ old('no_seri') ? old('no_seri') : $produksatu->no_seri }}"
-                                    placeholder="Masukan No Seri" name="no_seri" autocomplete="off" readonly>
+                                    type="text" value="{{ old('no_seri')  }}" placeholder="Masukan No Seri"
+                                    name="no_seri" autocomplete="off">
                                 @error('no_seri')
                                 <span style="color: red;">{{ $message }}</span>
                                 @enderror
@@ -73,17 +71,12 @@
                                 <select name="distributor"
                                     class="form-control @error('distributor') is-invalid @enderror" id="distributor"
                                     required>
-                                    <option
-                                        value="{{ old('distributor') ? old('distributor') : $produksatu->distributor }}"
-                                        hidden="">{{$produksatu->distributor}}</option>
+                                    <option value="" hidden="">
+                                        --Pilih Distributor--</option>
                                     <option value="PT. Rajawali Nusindo">PT. Rajawali Nusindo</option>
                                     <option value="PT. Mitra Inti Medika">PT. Mitra Inti Medika</option>
                                     <option value="PT. Prima Citra Inovindo">PT. Prima Citra Inovindo</option>
                                 </select>
-                                {{-- <input class="form-control @error('distributor') is-invalid @enderror"
-                                    id="distributor" type="text"
-                                    value="{{ old('distributor') ? old('distributor') : $produksatu->distributor }}"
-                                    placeholder="Masukan Distributor" name="distributor" autocomplete="off"> --}}
                                 @error('distributor')
                                 <span style="color: red;">{{ $message }}</span>
                                 @enderror
@@ -91,9 +84,8 @@
                             <div class="mb-3">
                                 <label for="rumah_sakit">Rumah Sakit</label>
                                 <input class="form-control @error('rumah_sakit') is-invalid @enderror" id="rumah_sakit"
-                                    type="text"
-                                    value="{{ old('rumah_sakit') ? old('rumah_sakit') : $produksatu->rumah_sakit }}"
-                                    placeholder="Masukan Rumah Sakit" name="rumah_sakit" autocomplete="off">
+                                    type="text" value="{{ old('rumah_sakit')}}" placeholder="Masukan Rumah Sakit"
+                                    name="rumah_sakit" autocomplete="off">
                                 @error('rumah_sakit')
                                 <span style="color: red;">{{ $message }}</span>
                                 @enderror
@@ -101,25 +93,43 @@
                             <div class="mb-3">
                                 <label for="tgl_instalasi">Tanggal Instalasi</label>
                                 <input class="form-control @error('tgl_instalasi') is-invalid @enderror"
-                                    id="tgl_instalasi" type="date"
-                                    value="{{ old('tgl_instalasi') ? old('tgl_instalasi') : $produksatu->tgl_instalasi }}"
-                                    placeholder="Masukan Tanggal Instalasi" name="tgl_instalasi" autocomplete="off">
+                                    id="tgl_instalasi" type="date" value="{{ old('tgl_instalasi')}}"
+                                    placeholder="dd/mm/yyyy" name="tgl_instalasi" autocomplete="off">
                                 @error('tgl_instalasi')
                                 <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="keterangan">Keterangan</label>
-                                <input class="form-control @error('keterangan') is-invalid @enderror" id="keterangan"
-                                    type="text"
-                                    value="{{ old('keterangan') ? old('keterangan') : $produksatu->keterangan }}"
-                                    placeholder="Masukan Keterangan" name="keterangan" autocomplete="off">
-                                @error('keterangan')
+                                <label for="permintaan">Permintaan</label>
+                                <input class="form-control @error('permintaan') is-invalid @enderror" id="permintaan"
+                                    type="text" value="{{ old('permintaan') }}" placeholder="Masukan permintaan"
+                                    name="permintaan" autocomplete="off">
+                                @error('permintaan')
                                 <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>
-
-
+                            <div class="mb-3">
+                                <label for="tindakan">Tindakan</label>
+                                <input class="form-control @error('tindakan') is-invalid @enderror" id="tindakan"
+                                    type="text" value="{{ old('tindakan') }}" placeholder="Masukan tindakan"
+                                    name="tindakan" autocomplete="off">
+                                @error('tindakan')
+                                <span style="color: red;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="status">Status</label>
+                                <select name="status" class="form-control @error('status') is-invalid @enderror"
+                                    id="status" required>
+                                    <option value="" hidden="">
+                                        --Pilih Status--</option>
+                                    <option value="Selesai">Selesai</option>
+                                    <option value="Belum Selesai">Belum Selesai</option>
+                                </select>
+                                @error('status')
+                                <span style="color: red;">{{ $message }}</span>
+                                @enderror
+                            </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-primary">SIMPAN</button>
                             </div>

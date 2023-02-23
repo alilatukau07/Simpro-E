@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
+use PDF;
 
 class UsersController extends Controller
 {
@@ -124,5 +124,15 @@ class UsersController extends Controller
             DB::commit();
             return redirect()->back();
         }
+    }
+
+    public function exportpdf()
+    {
+        $user = User::all();
+
+        view()->share('user', $user);
+        $pdf = PDF::loadview('users.userspdf');
+        // return $pdf->download('DataKaryawan.pdf');
+        return $pdf->setPaper('a3', 'portail')->setOptions(['defaultFont' => 'serif'])->download('DataKaryawan.pdf');
     }
 }

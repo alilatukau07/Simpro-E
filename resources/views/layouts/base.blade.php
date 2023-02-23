@@ -15,6 +15,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{asset('img/emb.png')}}">
     <link href="{{ asset('temp/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('temp/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <script src="{{ asset('temp/vendor/jquery/jquery.min.js') }}"></script>
@@ -28,10 +29,9 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon">
-                    <img src="{{ asset('img/emb.png') }}" alt="Logo" width="40px">
+                    <img src="{{ asset('img/emb.png') }}" alt="Logo" width="60px">
                 </div>
-                <div class="sidebar-brand-text ml-1">SIMPRO-E</div>
-
+                <img src="{{ asset('img/enesers.png') }}" alt="Logo" width="120px">
             </a>
 
             <!-- Divider -->
@@ -62,45 +62,31 @@
                     <i class="fas fa-list"></i>
                     <span>Kategori</span></a>
             </li>
-            <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('produksatu.index') }}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa fa-server"></i>
-                    <span>Produk 2022</span></a>
-            </li>
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-server"></i>
-                    <span>Produk 2021</span></a>
-            </li>
-            <!-- Nav Item - Rent Log -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-server"></i>
-                    <span>Produk 2020</span></a>
-            </li>
-            <!-- Nav Item - Rent Log -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-server"></i>
-                    <span>Produk 2019</span></a>
-            </li>
-            <!-- Nav Item - Rent Log -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-server"></i>
-                    <span>Produk 2018</span></a>
+                    <span>Produk</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('produksatu.index') }}">2022</a>
+                        <a class="collapse-item" href="#">2021</a>
+                        <a class="collapse-item" href="#">2020</a>
+                        <a class="collapse-item" href="#">2019</a>
+                        <a class="collapse-item" href="#">2018</a>
+                    </div>
+                </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('maintenance.index') }}">
                     <i class="fa fa-recycle"></i>
                     <span>Maintenance</span></a>
             </li>
             @else
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-users"></i>
+                <a class="nav-link" href="{{ route('maintenance.index') }}">
+                    <i class="fa fa-recycle"></i>
                     <span>Maintenance</span></a>
             </li>
             @endif

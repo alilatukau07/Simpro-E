@@ -40,9 +40,9 @@
                                             Login
                                         </button>
                                     </form>
-                                    <div class="text-center mt-2">
+                                    {{-- <div class="text-center mt-2">
                                         <a class="small" href="/register">Buat akun?</a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
