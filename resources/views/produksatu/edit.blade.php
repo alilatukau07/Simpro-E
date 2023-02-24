@@ -14,7 +14,8 @@
                                 class="fa fa-arrow-left"></i> Back</a>
                     </div>
                     <div class="col-md-10">
-                        <form method="POST" action="{{ route('produksatu.update', $produksatu->id) }}">
+                        <form method="POST" action="{{ route('produksatu.update', $produksatu->id) }}"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
@@ -115,6 +116,14 @@
                                     value="{{ old('keterangan') ? old('keterangan') : $produksatu->keterangan }}"
                                     placeholder="Masukan Keterangan" name="keterangan" autocomplete="off">
                                 @error('keterangan')
+                                <span style="color: red;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1">PIC</label>
+                                <input class="form-control @error('dokumen') is-invalid @enderror" type="file"
+                                    value="{{ old('dokumen') }}" placeholder="Masukan dokumen" name="dokumen">
+                                @error('dokumen')
                                 <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>

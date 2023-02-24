@@ -76,6 +76,20 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
+                                <label for="status">Status User</label>
+                                <select name="status" class="form-control  @error('status') is-invalid @enderror"
+                                    id="status">
+                                    <option value="">-- Pilih --</option>
+                                    <option value="active" {{ old('status')=='active' ? 'selected' : '' }}>
+                                        Active</option>
+                                    <option value="inactive" {{ old('status')=='inactive' ? 'selected' : '' }}>
+                                        Inactive</option>
+                                </select>
+                                @error('status')
+                                <span style="color: red;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
                                 <label for="exampleFormControlInput1">Foto</label>
                                 <input class="form-control @error('foto') is-invalid @enderror" type="file"
                                     value="{{ old('foto') }}" placeholder="Masukan Foto" name="foto">

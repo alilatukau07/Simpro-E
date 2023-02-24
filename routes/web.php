@@ -13,6 +13,8 @@ Route::redirect('/', '/login');
 Route::get('login', [LoginController::class, 'index']);
 Route::post('login', [LoginController::class, 'authenticate'])->name('login');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('register', [LoginController::class, 'register'])->name('register');
+route::post('register', [LoginController::class, 'registerProcess']);
 
 Route::middleware('auth')->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');

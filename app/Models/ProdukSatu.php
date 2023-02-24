@@ -18,5 +18,6 @@ class ProdukSatu extends Model
         'rumah_sakit',
         'tgl_instalasi',
         'keterangan',
+        'dokumen',
     ];
 }

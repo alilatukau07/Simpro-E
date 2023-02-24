@@ -14,7 +14,7 @@
                                 class="fa fa-arrow-left"></i> Back</a>
                     </div>
                     <div class="col-md-6">
-                        <form method="POST" action="{{ route('produksatu.store') }}">
+                        <form method="POST" action="{{ route('produksatu.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="nama_produk">Nama Produk/Type</label>
@@ -105,6 +105,14 @@
                                     type="text" value="{{ old('keterangan') }}" placeholder="Masukan Keterangan"
                                     name="keterangan" autocomplete="off">
                                 @error('keterangan')
+                                <span style="color: red;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1">PIC</label>
+                                <input class="form-control @error('dokumen') is-invalid @enderror" type="file"
+                                    value="{{ old('dokumen') }}" placeholder="Masukan dokumen" name="dokumen">
+                                @error('dokumen')
                                 <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>

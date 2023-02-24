@@ -23,6 +23,7 @@
                                     <th class="text-center">Posisi</th>
                                     <th class="text-center">No Hp</th>
                                     <th class="text-center">Foto</th>
+                                    <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -38,6 +39,7 @@
                                     <td>
                                         <img src="{{asset('fotousers/'.$item->foto)}}" alt="" style="width: 50px">
                                     </td>
+                                    <td>{{ $item->status }}</td>
                                     <td class="d-flex justify-content-center">
                                         <a href="{{ route('users.edit', $item->id) }}"
                                             class="btn btn-primary btn-xs mb-1 mr-2">

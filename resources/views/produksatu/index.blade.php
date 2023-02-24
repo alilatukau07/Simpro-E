@@ -9,22 +9,58 @@
         <div class="col-md-12">
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    <a href="{{ route('produksatu.create') }}" class="btn btn-md btn-success mb-3">TAMBAH</a>
+                    <a href="{{ route('produksatu.create') }}" class="btn btn-md btn-success mb-3"><i
+                            class="fa fa-cart-plus" aria-hidden="true"></i> TAMBAH</a>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th class="text-center">No.</th>
                                     <th class="text-center">Nama Produk/Type</th>
-                                    <th class="text-center">No. Seri</th>
-                                    <th class="text-center">Distributor</th>
+                                    <th class="text-center">SN</th>
                                     <th class="text-center">Rumah Sakit</th>
+                                    <th class="text-center">Distributor</th>
                                     <th class="text-center">Tanggal Instalasi</th>
                                     <th class="text-center">Keterangan</th>
-                                    <th class="text-center" width="15%">Action</th>
+                                    <th class="text-center">PIC</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
+                                @php $no=1; @endphp
+                                @foreach($produksatu as $item)
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $item->nama_produk }}</td>
+                                    <td>{{ $item->no_seri }}</td>
+                                    <td>{{ $item->rumah_sakit }}</td>
+                                    <td>{{ $item->distributor }}</td>
+                                    <td>{{ $item->tgl_instalasi }}</td>
+                                    <td>{{ $item->keterangan }}</td>
+                                    <td>
+                                        <a download href="dokumenproduksatu/{{$item->dokumen}}"><button
+                                                class="btn btn-secondary btn-xs"><i class="fa fa-print"
+                                                    aria-hidden="true"></i>
+                                            </button></a>
+                                    </td>
+                                    <td class="d-flex justify-content-center">
+                                        <a href="{{ route('produksatu.edit', $item->id) }}"
+                                            class="btn btn-primary btn-xs mb-1 mr-2">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('produksatu.destroy', $item->id) }}" method="post"
+                                            class="d-inline"
+                                            onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                            @csrf
+                                            @method('delete')
+
+                                            <button class="btn btn-danger btn-xs mb-1">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -34,53 +70,3 @@
     </div>
 </div>
 @endsection
-
-@push('js')
-<script>
-    let columns = [{
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex',
-                orderable: false,
-                searchable: false
-            },
-            {
-                data: 'nama_produk',
-                name: 'nama_produk'
-            },
-            {
-                data: 'no_seri',
-                name: 'no_seri'
-            },
-            {
-                data: 'distributor',
-                name: 'distributor'
-            },
-            {
-                data: 'rumah_sakit',
-                name: 'rumah_sakit'
-            },
-            {
-                data: 'tgl_instalasi',
-                name: 'tgl_instalasi'
-            },
-            {
-                data: 'keterangan',
-                name: 'keterangan'
-            },
-        ]
-
-        columns.push({
-            data: 'action',
-            name: 'action',
-            orderable: false,
-            searchable: false
-        })
-
-        $('#dataTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('produksatu.index') }}",
-            columns: columns
-        });
-</script>
-@endpush

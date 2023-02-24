@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('rumah_sakit');
             $table->string('tgl_instalasi');
             $table->string('keterangan');
+            $table->string('dokumen')->nullable();
             $table->timestamps();
         });
     }

@@ -1,5 +1,5 @@
 @extends('layouts.baselogin')
-@section('title', 'Login')
+@section('title', 'Register')
 @section('content')
 
 <body class="bg-gradient-primary">
@@ -23,17 +23,27 @@
                                     </div>
                                     @endif
 
-                                    <form class="user" action="/login" method="post">
+                                    <form class="user" action="" method="post">
                                         @csrf
                                         <div class="form-group">
+                                            <label>Nama Lengkap</label>
+                                            <input type="text" class="form-control form-control-user" name="name"
+                                                placeholder="Masukan Nama Lengkap" autofocus>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Email</label>
-                                            <input type="email" class="form-control form-control-user" name="email"
-                                                placeholder="Masukan Email" autofocus required value="{{old('email')}}">
+                                            <input type="text" class="form-control form-control-user" name="email"
+                                                placeholder="Masukan Email">
                                         </div>
                                         <div class="form-group">
                                             <label>Password</label>
                                             <input type="password" class="form-control form-control-user"
-                                                name="password" placeholder="Masukan Password" required>
+                                                name="password" placeholder="Masukan Password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Phone</label>
+                                            <input type="text" class="form-control form-control-user" name="no_hp"
+                                                placeholder="Masukan Phone">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -43,11 +53,12 @@
                                             </div>
                                         </div>
                                         <button class="btn btn-primary btn-user btn-block" type="submit">
-                                            Login
+                                            Daftar
                                         </button>
                                     </form>
                                     <div class="text-center mt-2">
-                                        <a class="small" href="{{route('register')}}">Buat akun?</a>
+                                        <small>Sudah punya akun?</small> <a class="small" href="{{route('login')}}"
+                                            style="text-decoration: none">Login</a>
                                     </div>
                                 </div>
                             </div>

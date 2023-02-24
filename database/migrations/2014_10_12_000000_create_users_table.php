@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('no_hp')->nullable();
-            $table->string('level');
+            $table->string('level')->default('User');
             $table->string('foto')->nullable();
+            $table->string('status')->default('inactive');
             $table->timestamps();
         });
     }
